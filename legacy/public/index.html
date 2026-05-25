@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploynix - Welcome</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gateway-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 26, 0.95)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3') center/cover;
+            padding: 20px;
+        }
+
+        .gateway-logo {
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .gateway-logo img {
+            height: 100px;
+            width: auto;
+            transform: scale(2.5);
+        }
+
+        .gateway-cards {
+            display: flex;
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .role-card {
+            background: rgba(45, 45, 45, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--medium-gray);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .role-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary-red);
+            box-shadow: 0 20px 50px rgba(139, 0, 0, 0.4);
+            background: rgba(45, 45, 45, 0.95);
+        }
+
+        .role-icon {
+            font-size: 4rem;
+            color: var(--primary-red);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .role-card:hover .role-icon {
+            transform: scale(1.1);
+        }
+
+        .role-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .role-desc {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .gateway-btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: transparent;
+            border: 2px solid var(--primary-red);
+            color: var(--white);
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        .role-card:hover .gateway-btn {
+            background: var(--primary-red);
+            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.3);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gateway-container">
+        <div class="gateway-logo">
+            <img src="/brand/talorix-logo.png" alt="Talorix">
+        </div>
+
+        <div class="gateway-cards">
+            <!-- Candidate Card -->
+            <a href="auth.html?role=candidate" class="role-card">
+                <i class="fas fa-user-tie role-icon"></i>
+                <h2 class="role-title">I am a Candidate</h2>
+                <p class="role-desc">Looking for your dream job? Browse thousands of opportunities, apply with one
+                    click, and manage your career profile.</p>
+                <div class="gateway-btn">Candidate Login</div>
+            </a>
+
+            <!-- Employer Card -->
+            <a href="auth.html?role=employer" class="role-card">
+                <i class="fas fa-building role-icon"></i>
+                <h2 class="role-title">I am an Employer</h2>
+                <p class="role-desc">Looking for top talent? Post new job listings, manage applications, and connect
+                    with potential candidates seamlessly.</p>
+                <div class="gateway-btn">Employer Login</div>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

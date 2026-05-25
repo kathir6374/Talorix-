@@ -1,0 +1,12 @@
+﻿src/app/api/candidates/route.ts(105,22): error TS18047: 'edu' is possibly 'null'.
+src/app/api/candidates/route.ts(105,26): error TS2339: Property 'school' does not exist on type 'string | number | boolean | JsonObject | JsonArray'.
+  Property 'school' does not exist on type 'string'.
+src/app/api/candidates/route.ts(105,36): error TS18047: 'edu' is possibly 'null'.
+src/app/api/candidates/route.ts(105,40): error TS2339: Property 'school' does not exist on type 'string | number | boolean | JsonObject | JsonArray'.
+  Property 'school' does not exist on type 'string'.
+src/app/api/candidates/route.ts(106,22): error TS18047: 'edu' is possibly 'null'.
+src/app/api/candidates/route.ts(106,26): error TS2339: Property 'degree' does not exist on type 'string | number | boolean | JsonObject | JsonArray'.
+  Property 'degree' does not exist on type 'string'.
+src/app/api/candidates/route.ts(106,36): error TS18047: 'edu' is possibly 'null'.
+src/app/api/candidates/route.ts(106,40): error TS2339: Property 'degree' does not exist on type 'string | number | boolean | JsonObject | JsonArray'.
+  Property 'degree' does not exist on type 'string'.

@@ -1,0 +1,47 @@
+import path from "path";
+import {
+    deleteStoredFileByUrl,
+    readLocalStoredFile,
+    saveStoredFile,
+} from "@/lib/file-storage";
+
+const LOGO_UPLOAD_DIR = path.join(process.cwd(), "uploads", "logos");
+const LOGO_URL_PREFIX = "/api/files/logos/";
+
+const MIME_TYPE_BY_EXTENSION: Record<string, string> = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+    ".avif": "image/avif",
+};
+
+const EXTENSION_BY_MIME_TYPE: Record<string, string> = {
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/webp": ".webp",
+    "image/gif": ".gif",
+    "image/avif": ".avif",
+};
+
+const STORAGE_CONFIG = {
+    uploadDir: LOGO_UPLOAD_DIR,
+    urlPrefix: LOGO_URL_PREFIX,
+    mimeTypeByExtension: MIME_TYPE_BY_EXTENSION,
+    extensionByMimeType: EXTENSION_BY_MIME_TYPE,
+    defaultExtension: ".jpg",
+    fallbackMimeType: "application/octet-stream",
+};
+
+export async function saveLogoFile(buffer: Buffer, originalName: string, mimeType: string) {
+    return saveStoredFile(buffer, originalName, mimeType, "logos", STORAGE_CONFIG);
+}
+
+export async function deleteLogoFileByUrl(url: string | null | undefined) {
+    return deleteStoredFileByUrl(url, STORAGE_CONFIG);
+}
+
+export async function readStoredLogoFile(fileName: string) {
+    return readLocalStoredFile(fileName, STORAGE_CONFIG);
+}

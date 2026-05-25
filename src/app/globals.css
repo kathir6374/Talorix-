@@ -1,0 +1,467 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-inter), system-ui, sans-serif;
+}
+
+:root {
+  --background: #F8F9FB;
+  --foreground: #1A1A1A;
+  --card: #ffffff;
+  --border: #E5E7EB;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --primary: #FF7A00;
+  --primary-foreground: #ffffff;
+
+  --radius: 0.5rem;
+
+  /* Legacy Glass / Liquid System */
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-blur: 20px;
+  --glass-shadow: none;
+
+  --shadow-glow: 0 0 25px rgba(245, 158, 11, 0.15);
+  --brand-primary: #FF7A00;
+  --brand-gradient-subtle: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(251, 191, 36, 0.05) 100%);
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #0a0a0a;
+  --border: #18181b;
+
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --primary: #FF7A00;
+  --primary-foreground: #000000;
+
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 24px;
+  --glass-shadow: none;
+
+  --shadow-glow: 0 0 25px rgba(245, 158, 11, 0.15);
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
+/* ── Typography ── */
+.heading-1 {
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+/* ── Glass Effect (Theme Aware) ── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.liquid-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, var(--brand-primary) 0%, transparent 20%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.liquid-glass:hover::before {
+  opacity: 0.1;
+  animation: liquid-pulse 4s ease-in-out infinite;
+}
+
+@keyframes liquid-pulse {
+
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.2) translate(10%, 10%);
+  }
+}
+
+/* ── Grid Background (dark theme landing) ── */
+.bg-grid-pattern {
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, var(--muted-foreground) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--muted-foreground) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, transparent, black, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black, transparent);
+  opacity: 0.2;
+}
+
+/* ── Dashboard sidebar active indicator ── */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  color: var(--muted-foreground);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.sidebar-link:hover {
+  color: var(--foreground);
+  background: var(--muted);
+  border-color: var(--border);
+}
+
+.sidebar-link.active {
+  color: var(--primary);
+  background: var(--brand-gradient-subtle);
+  border-color: rgba(245, 158, 11, 0.2);
+  font-weight: 600;
+}
+
+/* ── Shimmer text effect ── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #FF7A00 0%, #FBBF24 50%, #FF7A00 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Toast notification ── */
+.toast {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+}
+
+.toast-success {
+  background: #111;
+  color: #fff;
+}
+
+.toast-error {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* ── Loading skeleton ── */
+.skeleton {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--background) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}
+
+/* ── Utilities ── */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.admin-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2.5rem;
+  padding: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ── Mobile Drawer Overlay ── */
+.mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 85vw;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  z-index: 50;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+/* ── Sidebar Nav (formerly Bottom Tab Bar) ── */
+.mobile-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: row;
+  z-index: 60;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.mobile-tab-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Base style for icons horizontally */
+.mobile-tab-bar>button,
+.mobile-tab-bar>a,
+.mobile-tab-bar>div {
+  flex: 1 1 0% !important;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.mobile-tab-bar>button:hover,
+.mobile-tab-bar>a:hover {
+  transform: translateY(-1px);
+}
+
+.mobile-tab-bar>button:active,
+.mobile-tab-bar>a:active {
+  transform: scale(0.97);
+}
+
+/* Default to no left-padding for main on mobile */
+body:has(.mobile-tab-bar) main {
+  padding-bottom: 72px !important;
+}
+
+/* Turn into Sidebar on Desktop views */
+@media (min-width: 768px) {
+  .mobile-tab-bar {
+    top: 64px;
+    /* Below the navbar md height */
+    bottom: 0;
+    width: 72px;
+    /* Sidebar width */
+    height: auto;
+    border-right: 1px solid var(--border);
+    border-top: none;
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 24px));
+    overflow-y: auto;
+  }
+
+  .mobile-tab-bar>button,
+  .mobile-tab-bar>a,
+  .mobile-tab-bar>div {
+    min-height: 72px;
+    width: 100%;
+  }
+
+  .mobile-tab-bar>button:hover,
+  .mobile-tab-bar>a:hover {
+    transform: translateX(2px);
+  }
+
+  .mobile-tab-bar>button:active,
+  .mobile-tab-bar>a:active {
+    transform: scale(0.985);
+  }
+
+  /* Shift main content, footer, and navbar to accommodate the fixed sidebar */
+  body:has(.mobile-tab-bar) main,
+  body:has(.mobile-tab-bar) footer,
+  body:has(.mobile-tab-bar) nav.fixed:not(.mobile-tab-bar) {
+    padding-left: 72px !important;
+  }
+}
+
+/* ── Touch-friendly minimum sizes ── */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ── Tables responsive wrapper ── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Mobile card stack ── */
+@media (max-width: 640px) {
+  .mobile-stack-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-primary {
+    min-height: 44px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-card {
+    border-radius: 1rem;
+    padding: 1.25rem;
+  }
+
+  /* Compact Dashboard Card Padding */
+  .employer-card-compact {
+    padding: 0.75rem !important;
+  }
+}
+
+/* ── Native Form Fixes ── */
+select option {
+  background-color: var(--background);
+  color: var(--foreground);
+}

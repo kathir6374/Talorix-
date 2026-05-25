@@ -1,0 +1,18 @@
+
+> next@0.1.0 dev
+> next dev --port 3200
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3200
+- Network:       http://192.168.56.1:3200
+- Environments: .env.local
+✓ Ready in 508ms
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3100
+- PID:          2876
+- Dir:          D:\Project\Product\talorix.job-main\talorix.job-main
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 2876 /F to stop it.
+[?25h

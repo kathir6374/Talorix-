@@ -1,0 +1,294 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                   String             @id @default(cuid())
+  name                 String
+  email                String             @unique
+  password_hash        String
+  role                 String
+  headline             String?
+  bio                  String?
+  phone                String?
+  avatar_url           String?
+  gender               String?
+  country              String?
+  state                String?
+  city                 String?
+  skills               Json?
+  experience           Json?
+  education            Json?
+  social_links         Json?
+  open_to_work         Boolean            @default(true)
+  resume_url           String?
+  current_job_title    String?
+  current_company      String?
+  total_experience     String?
+  certifications       Json?
+  projects             Json?
+  portfolio_links      Json?
+  expected_salary      String?
+  preferred_location   String?
+  ai_rank              Int?
+  ai_percentile        Float?
+  ai_confidence_score  Float?
+  ai_concept_coverage  Float?
+  ai_feedback_summary  Json?
+  skill_rank           Int?
+  skill_percentile     Float?
+  availability_status  String             @default("OPEN")
+  available_in_days    Int                @default(0)
+  profile_views        Int                @default(0)
+  company_logo_url     String?
+  company_description  String?
+  company_website      String?
+  company_size         String?
+  company_industry     String?
+  company_sub_industry String?
+  is_verified          Boolean            @default(false)
+  verified_employer    Boolean            @default(false)
+  is_recommended       Boolean            @default(false)
+  is_suspended         Boolean            @default(false)
+  verification_otp     String?
+  otp_expiry           DateTime?
+  is_admin             Boolean            @default(false)
+  created_at           DateTime           @default(now())
+  applications         Application[]      @relation("CandidateApplications")
+  bookmarks            Bookmark[]
+  comments             Comment[]          @relation("UserComments")
+  commentVotes         CommentVote[]      @relation("UserCommentVotes")
+  candidateInterviews  Interview[]        @relation("CandidateInterviews")
+  employerInterviews   Interview[]        @relation("EmployerInterviews")
+  interviewAttempts    InterviewAttempt[]
+  postedJobs           Job[]              @relation("EmployerJobs")
+  posts                Post[]             @relation("UserPosts")
+  postVotes            PostVote[]         @relation("UserPostVotes")
+  reportsAboutUser     Report[]           @relation("ReportedUser")
+  reportsAsUser        Report[]           @relation("UserReports")
+}
+
+model Bookmark {
+  id         String   @id @default(cuid())
+  user_id    String
+  job_id     String
+  created_at DateTime @default(now())
+  job        Job      @relation(fields: [job_id], references: [id])
+  user       User     @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, job_id])
+}
+
+model Job {
+  id                     String             @id @default(cuid())
+  status                 String             @default("ACTIVE")
+  job_title              String
+  job_description        String
+  company_name           String
+  job_category           String             @default("Uncategorized")
+  job_type               String             @default("Full-time")
+  work_model             String             @default("Onsite")
+  country                String             @default("")
+  state                  String             @default("")
+  city                   String             @default("")
+  salary_type            String             @default("Yearly")
+  salary_min             Int                @default(0)
+  salary_max             Int                @default(0)
+  currency               String             @default("USD")
+  experience_min         Int                @default(0)
+  experience_max         Int                @default(0)
+  education_level        String             @default("Any")
+  required_skills        Json               @default("[]")
+  search_keywords        Json               @default("[]")
+  ai_interview_questions Json?
+  openings               Int                @default(1)
+  shift_type             String?
+  benefits               Json?
+  application_deadline   DateTime?
+  external_apply_url     String?
+  hr_contact_name        String             @default("")
+  hr_contact_phone       String             @default("")
+  posted_by              String
+  created_at             DateTime           @default(now())
+  applications           Application[]
+  bookmarks              Bookmark[]
+  interviews             Interview[]
+  interviewAttempts      InterviewAttempt[]
+  employer               User               @relation("EmployerJobs", fields: [posted_by], references: [id])
+  reports                Report[]           @relation("JobReports")
+}
+
+model Application {
+  id                 String   @id @default(cuid())
+  job_id             String
+  candidate_id       String
+  applicant_name     String   @default("")
+  phone              String   @default("")
+  address            String   @default("")
+  resume_url         String?
+  application_status String   @default("applied")
+  applied_at         DateTime @default(now())
+  candidate          User     @relation("CandidateApplications", fields: [candidate_id], references: [id])
+  job                Job      @relation(fields: [job_id], references: [id])
+}
+
+model Report {
+  id               String   @id @default(cuid())
+  user_id          String
+  job_id           String?
+  reported_user_id String?
+  reason           String
+  description      String?
+  status           String   @default("pending")
+  created_at       DateTime @default(now())
+  job              Job?     @relation("JobReports", fields: [job_id], references: [id])
+  reportedUser     User?    @relation("ReportedUser", fields: [reported_user_id], references: [id])
+  reporter         User     @relation("UserReports", fields: [user_id], references: [id])
+}
+
+model InterviewAttempt {
+  id                     String   @id @default(cuid())
+  user_id                String
+  job_id                 String?
+  role_tested_for        String?
+  score                  Int
+  transcript             String
+  feedback               Json
+  communication_score    Int?
+  adaptability_score     Int?
+  technical_score        Int?
+  keyword_matches        Json?
+  ai_technical_score     Float?
+  ai_concept_score       Float?
+  ai_communication_score Float?
+  ai_final_score         Float?
+  ai_feedback            String?
+  created_at             DateTime @default(now())
+  job                    Job?     @relation(fields: [job_id], references: [id])
+  user                   User     @relation(fields: [user_id], references: [id])
+}
+
+model Interview {
+  id             String   @id @default(cuid())
+  job_id         String
+  candidate_id   String
+  employer_id    String
+  scheduled_time DateTime
+  meeting_link   String   @default("")
+  interview_type String   @default("Online")
+  notes          String?
+  status         String   @default("Scheduled")
+  created_at     DateTime @default(now())
+  candidate      User     @relation("CandidateInterviews", fields: [candidate_id], references: [id])
+  employer       User     @relation("EmployerInterviews", fields: [employer_id], references: [id])
+  job            Job      @relation(fields: [job_id], references: [id])
+}
+
+model SystemSettings {
+  id                   Int      @id @default(1)
+  monetization_enabled Boolean  @default(false)
+  updated_at           DateTime @default(now())
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  content     String
+  image_url   String?
+  video_url   String?
+  author_id   String
+  author_role String
+  post_type   String     @default("blog")
+  is_pinned   Boolean    @default(false)
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @default(now())
+  comments    Comment[]
+  author      User       @relation("UserPosts", fields: [author_id], references: [id])
+  votes       PostVote[]
+
+  @@index([author_id])
+}
+
+model Comment {
+  id            String        @id @default(cuid())
+  post_id       String
+  author_id     String
+  content       String
+  parent_id     String?
+  helpful_count Int           @default(0)
+  created_at    DateTime      @default(now())
+  author        User          @relation("UserComments", fields: [author_id], references: [id])
+  parent        Comment?      @relation("CommentReplies", fields: [parent_id], references: [id], onDelete: Cascade)
+  replies       Comment[]     @relation("CommentReplies")
+  post          Post          @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  votes         CommentVote[]
+
+  @@index([post_id])
+  @@index([author_id])
+  @@index([parent_id])
+}
+
+model CommentVote {
+  id         String   @id @default(cuid())
+  comment_id String
+  user_id    String
+  created_at DateTime @default(now())
+  comment    Comment  @relation(fields: [comment_id], references: [id], onDelete: Cascade)
+  user       User     @relation("UserCommentVotes", fields: [user_id], references: [id])
+
+  @@unique([comment_id, user_id])
+}
+
+model PostVote {
+  id      String @id @default(cuid())
+  post_id String
+  user_id String
+  value   Int
+  post    Post   @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  user    User   @relation("UserPostVotes", fields: [user_id], references: [id])
+
+  @@unique([post_id, user_id])
+}
+
+model ContactMessage {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  subject    String
+  message    String
+  created_at DateTime @default(now())
+}
+
+model NewsletterSubscriber {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  created_at DateTime @default(now())
+}
+
+model OtpSession {
+  id              String   @id @default(cuid())
+  purpose         String
+  user_id         String?
+  email           String?
+  phone           String?
+  otp_hash        String
+  expires_at      DateTime
+  consumed_at     DateTime?
+  last_sent_at    DateTime @default(now())
+  resend_count    Int      @default(0)
+  verify_attempts Int      @default(0)
+  metadata        Json?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  @@index([purpose, user_id])
+  @@index([purpose, email])
+  @@index([purpose, phone])
+  @@index([expires_at])
+}

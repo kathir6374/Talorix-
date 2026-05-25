@@ -1,0 +1,496 @@
+
+> next@0.1.0 lint
+> eslint
+
+
+D:\pvt\deplonix\create-folder.js
+  1:20  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\debug-upload.js
+  1:20  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:22  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\diagnose-drive.js
+  1:20  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\final-test.js
+  1:20  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:22  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\find_employer.js
+  1:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\fix-links.js
+  1:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\legacy\public\app.js
+  265:10  warning  'clearFilters' is defined but never used          @typescript-eslint/no-unused-vars
+  277:10  warning  'openApplicationModal' is defined but never used  @typescript-eslint/no-unused-vars
+  302:10  warning  'showJobDetails' is defined but never used        @typescript-eslint/no-unused-vars
+  356:10  warning  'closeSuccessModal' is defined but never used     @typescript-eslint/no-unused-vars
+  384:10  warning  'handleSignIn' is defined but never used          @typescript-eslint/no-unused-vars
+  410:10  warning  'handleSignUp' is defined but never used          @typescript-eslint/no-unused-vars
+  476:10  warning  'toggleUserDropdown' is defined but never used    @typescript-eslint/no-unused-vars
+  489:10  warning  'handleSignOut' is defined but never used         @typescript-eslint/no-unused-vars
+  549:10  warning  'saveProfile' is defined but never used           @typescript-eslint/no-unused-vars
+  581:10  warning  'applyPreferences' is defined but never used      @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\legacy\public\employer.js
+   5:5   warning  'userProfile' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  28:10  warning  'switchTab' is defined but never used             @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\legacy\server.js
+  1:17  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:16  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  3:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  4:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\middleware.ts
+  12:11  warning  'isCandidatePath' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  14:11  warning  'isAdminDashboard' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\app\admin\page.tsx
+    41:11   warning  'router' is assigned a value but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+    93:18   warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   120:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   127:56   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   128:58   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   129:72   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   130:38   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   134:44   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   135:58   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   151:8    warning  React Hook useEffect has missing dependencies: 'fetchCommunityPosts', 'fetchJobs', 'fetchReports', 'fetchUsers', and 'fetchVerificationEmployers'. Either include them or remove the dependency array                                                                                    react-hooks/exhaustive-deps
+   159:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   231:23   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   289:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   323:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   334:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   345:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   740:115  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   868:76   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  1240:57   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1248:65   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\api\admin\jobs\route.ts
+  29:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\admin\reports\route.ts
+  30:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\admin\users\route.ts
+   35:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   56:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  101:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  114:90  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\apply\route.ts
+   85:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  142:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\auth\login\route.ts
+  85:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\auth\verify\send\route.ts
+  23:46  warning  'deliveryMethod' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\app\api\bookmarks\route.ts
+  39:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\app\api\candidates\route.ts
+   24:28  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+   75:25  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+   80:25  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+   82:25  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  110:64  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  113:40  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  123:74  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  134:64  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  146:68  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  155:68  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\employer\fresh-matches\route.ts
+   6:27  warning  'req' is defined but never used  @typescript-eslint/no-unused-vars
+  27:74  warning  'e' is defined but never used    @typescript-eslint/no-unused-vars
+  76:68  warning  'e' is defined but never used    @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\app\api\employer\jobs\route.ts
+  45:57  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  47:54  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  48:91  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\interview-sim\init\route.ts
+  50:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\interview-sim\score\route.ts
+   57:11  warning  'lower' is assigned a value but never used                                                                           @typescript-eslint/no-unused-vars
+  365:17  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  371:17  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  373:17  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+
+D:\pvt\deplonix\src\app\api\interviews\route.ts
+  20:13  error  'where' is never reassigned. Use 'const' instead  prefer-const
+  20:20  error  Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\jobs\route.ts
+   68:18  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+   77:18  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+   86:18  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+   95:18  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  152:28  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  188:22  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\posts\[id]\comments\route.ts
+  52:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  56:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\posts\route.ts
+  21:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  59:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\profile\route.ts
+  95:36  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\upload\avatar\route.ts
+  54:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\upload\logo\route.ts
+  56:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\upload\media\route.ts
+  52:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\api\upload\resume\route.ts
+  62:21  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  71:30  warning  'req' is defined but never used           @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\app\candidate-dashboard\page.tsx
+     3:31  warning  'useRef' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+    21:17  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    22:16  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    23:19  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    32:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    33:15  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   117:50  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   118:48  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   122:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   123:46  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   131:60  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   134:12  warning  'isMobileNavOpen' is assigned a value but never used                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   134:29  warning  'setIsMobileNavOpen' is assigned a value but never used                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   275:23  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   451:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   546:65  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   548:65  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   639:49  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1115:61  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1117:61  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1171:61  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1173:61  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\candidate\[id]\page.tsx
+   28:13  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free                                                                                                                                                                      @typescript-eslint/ban-ts-comment
+   32:21  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free                                                                                                                                                                      @typescript-eslint/ban-ts-comment
+   61:87  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   63:99  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   64:81  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   66:51  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   83:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   85:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  155:59  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  178:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  200:64  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  233:61  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  256:26  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free                                                                                                                                                                      @typescript-eslint/ban-ts-comment
+  271:42  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free                                                                                                                                                                      @typescript-eslint/ban-ts-comment
+  272:84  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\candidate\interview-sim\[jobId]\page.tsx
+   15:36  error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+   22:42  error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+   25:35  error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  344:8   warning  React Hook useEffect has a missing dependency: 'questionsMap'. Either include it or remove the dependency array   react-hooks/exhaustive-deps
+  386:50  error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  386:87  error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  395:48  error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  406:61  warning  'e' is defined but never used                                                                                     @typescript-eslint/no-unused-vars
+  440:8   warning  React Hook useEffect has a missing dependency: 'stopRecording'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  442:37  warning  'blob' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+  776:55  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  776:58  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  776:64  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  776:69  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+
+D:\pvt\deplonix\src\app\candidate\interview-sim\recommend\page.tsx
+   27:42   error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+   30:35   error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  134:25   error    'selected' is never reassigned. Use 'const' instead                                                               prefer-const
+  156:8    warning  React Hook useEffect has a missing dependency: 'questionsMap'. Either include it or remove the dependency array   react-hooks/exhaustive-deps
+  194:50   error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  194:87   error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  203:48   error    Unexpected any. Specify a different type                                                                          @typescript-eslint/no-explicit-any
+  214:61   warning  'e' is defined but never used                                                                                     @typescript-eslint/no-unused-vars
+  248:8    warning  React Hook useEffect has a missing dependency: 'stopRecording'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  250:37   warning  'blob' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+  407:98   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                   react/no-unescaped-entities
+  407:117  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                   react/no-unescaped-entities
+  470:41   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  470:75   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  544:55   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  544:58   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  544:64   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+  544:69   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                   react/no-unescaped-entities
+
+D:\pvt\deplonix\src\app\community\[id]\page.tsx
+   46:38  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   57:8   warning  React Hook useEffect has missing dependencies: 'fetchComments' and 'fetchPost'. Either include them or remove the dependency array                                                                                                                                                       react-hooks/exhaustive-deps
+   63:48  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   65:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  108:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  118:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  137:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  158:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  180:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  226:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  248:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  355:45  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  407:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\community\page.tsx
+    2:31   warning  'useRef' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+    3:10   warning  'useRouter' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+    3:21   warning  'useSearchParams' is defined but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+    5:8    warning  'Image' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   39:38   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   58:8    warning  React Hook useEffect has a missing dependency: 'fetchPosts'. Either include it or remove the dependency array                                                                                                                                                                            react-hooks/exhaustive-deps
+   96:11   warning  'getYouTubeEmbedUrl' is assigned a value but never used                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  114:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  142:18   warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  202:23   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  336:56   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  392:61   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  411:53   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  602:53   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  691:118  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+
+D:\pvt\deplonix\src\app\companies\page.tsx
+  77:45  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\company\[id]\page.tsx
+   4:8   warning  'Navbar' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  37:11  warning  'initial' is assigned a value but never used                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  51:33  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\contact\page.tsx
+  4:8  warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\app\employer-dashboard\candidates\page.tsx
+   97:8   warning  React Hook useEffect has a missing dependency: 'performSearch'. Either include it or remove the dependency array                                                                                                                                                                         react-hooks/exhaustive-deps
+  104:8   warning  React Hook useEffect has missing dependencies: 'loading' and 'performSearch'. Either include them or remove the dependency array                                                                                                                                                         react-hooks/exhaustive-deps
+  375:57  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  377:57  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\employer-dashboard\page.tsx
+     6:8    warning  'Image' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+    59:18   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    60:22   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    61:21   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    62:24   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    64:26   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    65:20   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    66:27   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    67:29   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    71:30   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+    78:7    warning  'Icons' is assigned a value but never used                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+   171:44   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   177:80   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   193:12   warning  'isMobileNavOpen' is assigned a value but never used                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   193:29   warning  'setIsMobileNavOpen' is assigned a value but never used                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   351:11   warning  'handleLogout' is assigned a value but never used                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   425:11   warning  'resumesReceived' is assigned a value but never used                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   443:41   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   445:41   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   745:81   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   747:81   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   768:82   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   771:158  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   773:90   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   787:209  warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   791:212  warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   868:96   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   915:53   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1113:53   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1115:53   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  1177:130  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  1215:143  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  1266:95   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  1297:94   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\employer-dashboard\post-job\page.tsx
+   97:22  warning  'err' is defined but never used                                  @typescript-eslint/no-unused-vars
+   97:27  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  132:23  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  340:76  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  341:72  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  415:58  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  415:64  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\pvt\deplonix\src\app\forgot-password\page.tsx
+    6:8   warning  'Image' is defined but never used                                                              @typescript-eslint/no-unused-vars
+   14:13  warning  'theme' is assigned a value but never used                                                     @typescript-eslint/no-unused-vars
+   14:20  warning  'systemTheme' is assigned a value but never used                                               @typescript-eslint/no-unused-vars
+   15:12  warning  'mounted' is assigned a value but never used                                                   @typescript-eslint/no-unused-vars
+   32:9   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/rules-of-hooks')
+   92:23  error    Unexpected any. Specify a different type                                                       @typescript-eslint/no-explicit-any
+  116:23  error    Unexpected any. Specify a different type                                                       @typescript-eslint/no-explicit-any
+  152:23  error    Unexpected any. Specify a different type                                                       @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\jobs\[id]\page.tsx
+   12:36  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   60:34  warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   68:69  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  215:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  217:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\jobs\page.tsx
+   33:11  warning  'router' is assigned a value but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  245:57  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  247:57  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  261:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\login\page.tsx
+   6:8   warning  'Image' is defined but never used                  @typescript-eslint/no-unused-vars
+  18:13  warning  'theme' is assigned a value but never used         @typescript-eslint/no-unused-vars
+  18:20  warning  'systemTheme' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  19:12  warning  'mounted' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  62:23  warning  'selectedRole' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  74:23  error    Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\app\page.tsx
+    6:29  warning  'useScroll' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+    6:40  warning  'useTransform' is defined but never used                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+    6:54  warning  'useMotionValueEvent' is defined but never used                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   67:10  warning  'CountUp' is defined but never used                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   73:9   error    'start' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                         prefer-const
+   73:9   warning  'start' is assigned a value but never used                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+  385:36  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  585:73  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  676:23  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  753:73  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  762:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\app\signup\page.tsx
+    6:8   warning  'Image' is defined but never used                                @typescript-eslint/no-unused-vars
+   23:13  warning  'theme' is assigned a value but never used                       @typescript-eslint/no-unused-vars
+   23:20  warning  'systemTheme' is assigned a value but never used                 @typescript-eslint/no-unused-vars
+   24:12  warning  'mounted' is assigned a value but never used                     @typescript-eslint/no-unused-vars
+   64:23  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  122:34  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  132:34  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\pvt\deplonix\src\app\terms\page.tsx
+  39:48  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  39:54  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\pvt\deplonix\src\app\verify\page.tsx
+   5:8   warning  'Link' is defined but never used                  @typescript-eslint/no-unused-vars
+   6:8   warning  'Image' is defined but never used                 @typescript-eslint/no-unused-vars
+  18:13  warning  'theme' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  18:20  warning  'systemTheme' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  19:12  warning  'mounted' is assigned a value but never used      @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\components\BlurText.tsx
+  107:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  108:80  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\pvt\deplonix\src\components\Footer.tsx
+  13:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\pvt\deplonix\src\components\Footer.tsx:13:9
+  11 |
+  12 |     useEffect(() => {
+> 13 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  14 |     }, []);
+  15 |
+  16 |     return (  react-hooks/set-state-in-effect
+
+D:\pvt\deplonix\src\components\LocationDropdown.tsx
+  7:5  warning  'searchStates' is defined but never used  @typescript-eslint/no-unused-vars
+  8:5  warning  'searchCities' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\components\Navbar.tsx
+  10:11  warning  'router' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  20:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\pvt\deplonix\src\components\Navbar.tsx:20:9
+  18 |
+  19 |     useEffect(() => {
+> 20 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |     }, []);
+  22 |
+  23 |     const toggleTheme = () => {                                                                                                                                                                                                             react-hooks/set-state-in-effect
+  32:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\pvt\deplonix\src\components\Navbar.tsx:32:9
+  30 |         const cookies = document.cookie.split(";");
+  31 |         const isLoggedIn = cookies.some((c) => c.trim().startsWith("is_logged_in="));
+> 32 |         setIsAuthenticated(isLoggedIn);
+     |         ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  33 |
+  34 |         const roleCookie = cookies.find((c) => c.trim().startsWith("user_role="));
+  35 |         if (roleCookie) {  react-hooks/set-state-in-effect
+
+D:\pvt\deplonix\src\components\candidate\UpcomingInterviews.tsx
+  80:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+D:\pvt\deplonix\src\components\employer\CandidateCardCompact.tsx
+   9:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  20:67  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\components\employer\FreshMatchesWidget.tsx
+  13:44  error    Unexpected any. Specify a different type                                                                         @typescript-eslint/no-explicit-any
+  37:8   warning  React Hook useEffect has a missing dependency: 'fetchMatches'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\pvt\deplonix\src\components\employer\ProfileWhatsAppHero.tsx
+   9:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  18:67  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\src\lib\auth.ts
+  17:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\pvt\deplonix\test-check-user.js
+  1:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\test-reset-pass-123456.js
+  1:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:16  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+D:\pvt\deplonix\test-upload.js
+  1:0  error  Parsing error: File appears to be binary
+
+D:\pvt\deplonix\test-upload2.js
+  1:20  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+✖ 313 problems (168 errors, 145 warnings)
+  3 errors and 1 warning potentially fixable with the `--fix` option.
+

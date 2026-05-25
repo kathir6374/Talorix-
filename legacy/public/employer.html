@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talorix - Employer Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dashboard-container {
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--medium-gray);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 10px 20px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-red);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -11px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-red);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Post Job Form */
+        .post-job-form {
+            background: var(--dark-gray);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--medium-gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        /* Applications Table */
+        .applications-list {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            border: 1px solid var(--medium-gray);
+            overflow: hidden;
+        }
+
+        .app-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .app-table th,
+        .app-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .app-table th {
+            background: var(--medium-gray);
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .app-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .action-link {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--medium-gray);
+        }
+
+        .status-new {
+            color: #4ade80;
+            border: 1px solid #4ade80;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="employer.html">
+                    <img src="/brand/talorix-logo.png" alt="Talorix" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="candidate.html" target="_blank">Candidate Portal</a></li>
+                <li><a href="javascript:void(0)"
+                        onclick="localStorage.removeItem('talorix_user'); window.location.href='index.html';">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Employer <span class="highlight">Dashboard</span></h1>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('post-job')">Post a New Job</button>
+            <button class="tab-btn" onclick="switchTab('applications')">View Applications</button>
+        </div>
+
+        <!-- Post Job Tab -->
+        <div id="post-job" class="tab-content active">
+            <form id="postJobForm" class="post-job-form">
+                <h2 style="margin-bottom: 25px;">Create Job Listing</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title *</label>
+                        <input type="text" id="jobTitle" name="title" required
+                            placeholder="e.g. Senior Frontend Developer">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyName">Company Name *</label>
+                        <input type="text" id="companyName" name="company" required placeholder="e.g. TechCorp">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobRole">Role Type *</label>
+                        <select id="jobRole" name="role" required>
+                            <option value="">Select Role</option>
+                            <option value="developer">Developer</option>
+                            <option value="designer">Designer</option>
+                            <option value="manager">Manager</option>
+                            <option value="analyst">Analyst</option>
+                            <option value="engineer">Engineer</option>
+                            <option value="coordinator">Coordinator</option>
+                            <option value="representative">Representative</option>
+                            <option value="writer">Writer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" name="department" placeholder="e.g. Engineering">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobType">Job Type *</label>
+                        <select id="jobType" name="type" required>
+                            <option value="full-time">Full Time</option>
+                            <option value="part-time">Part Time</option>
+                            <option value="contract">Contract</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location Type *</label>
+                        <select id="location" name="location" required>
+                            <option value="remote">Remote</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="on-site">On-site</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salary">Salary Range</label>
+                        <input type="text" id="salary" name="salary" placeholder="e.g. $100k - $120k">
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Experience Required *</label>
+                        <select id="experience" name="experience" required>
+                            <option value="0-1">0-1 years</option>
+                            <option value="1-3">1-3 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5-10">5-10 years</option>
+                            <option value="10+">10+ years</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="tags">Tags / Skills (Comma separated)</label>
+                        <input type="text" id="tags" name="tags" placeholder="e.g. React, Node.js, TypeScript">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">Job Description *</label>
+                        <textarea id="description" name="description" rows="6" required
+                            placeholder="Describe the role and responsibilities..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary"
+                    style="margin-top: 30px; padding: 15px 40px; font-size: 1.1rem;">
+                    Post Job
+                </button>
+            </form>
+        </div>
+
+        <!-- Applications Tab -->
+        <div id="applications" class="tab-content">
+            <div class="applications-list">
+                <table class="app-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Applied For</th>
+                            <th>Experience</th>
+                            <th>Date Applied</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicationsBody">
+                        <tr>
+                            <td colspan="6" style="text-align:center;">Loading applications...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="employer.js"></script>
+</body>
+
+</html>

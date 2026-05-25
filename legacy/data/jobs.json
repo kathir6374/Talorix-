@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "title": "Senior Full Stack Developer",
+    "company": "TechCorp Solutions",
+    "department": "engineering",
+    "type": "full-time",
+    "location": "remote",
+    "salary": "$120k - $160k",
+    "salaryMin": 120,
+    "experience": "5+",
+    "experienceYears": 5,
+    "description": "Looking for a Senior Full Stack Developer to join the engineering team. You'll work on cutting-edge technologies and build scalable applications.",
+    "tags": [
+      "React",
+      "Node.js",
+      "TypeScript",
+      "AWS"
+    ],
+    "posted": "2 days ago",
+    "postedDays": 2,
+    "role": "developer"
+  },
+  {
+    "id": 2,
+    "title": "UX/UI Designer",
+    "company": "Creative Labs Inc.",
+    "department": "design",
+    "type": "full-time",
+    "location": "hybrid",
+    "salary": "$90k - $120k",
+    "salaryMin": 90,
+    "experience": "3+",
+    "experienceYears": 3,
+    "description": "Join the design team to create beautiful, intuitive user experiences. Work closely with product and engineering teams to bring ideas to life.",
+    "tags": [
+      "Figma",
+      "Adobe XD",
+      "Prototyping",
+      "User Research"
+    ],
+    "posted": "5 days ago",
+    "postedDays": 5,
+    "role": "designer"
+  }
+]

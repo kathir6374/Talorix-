@@ -12,8 +12,6 @@ dist/
 build/
 
 # Environment variables (NEVER commit secrets)
-.env
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local

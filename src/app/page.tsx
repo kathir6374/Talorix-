@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, useInView, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import "./homepage.css";
 
 type HomeOverviewData = {
@@ -86,32 +86,6 @@ function FloatingCard({
 }
 
 /* ─────────────── Storytelling Number Counter ─────────────── */
-function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-
-  useEffect(() => {
-    if (!isInView || !ref.current) return;
-    let start = 0;
-    const end = target;
-    const duration = 1800;
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out quart
-      const eased = 1 - Math.pow(1 - progress, 4);
-      const current = Math.floor(eased * end);
-      if (ref.current) ref.current.textContent = current + suffix;
-      if (progress < 1) requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
-  }, [isInView, target, suffix]);
-
-  return <span ref={ref}>0{suffix}</span>;
-}
-
 function formatOneDecimal(value: number | null) {
   return value === null ? "--" : value.toFixed(1);
 }
@@ -469,13 +443,66 @@ function FeaturedJobsSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/jobs?limit=6&status=ACTIVE")
-      .then((r) => r.json())
-      .then((d) => {
-        setJobs(d.jobs || []);
-      })
-      .catch(() => { })
-      .finally(() => setLoading(false));
+    const abortController = new AbortController();
+    const browserWindow = globalThis as Window &
+      typeof globalThis & {
+        requestIdleCallback?: (
+          callback: IdleRequestCallback,
+          options?: IdleRequestOptions,
+        ) => number;
+        cancelIdleCallback?: (handle: number) => void;
+      };
+    let isActive = true;
+    let timeoutId: number | null = null;
+    let idleCallbackId: number | null = null;
+
+    const loadFeaturedJobs = async () => {
+      try {
+        const response = await fetch("/api/jobs?limit=6&status=ACTIVE", {
+          cache: "force-cache",
+          signal: abortController.signal,
+        });
+        const data = await response.json();
+
+        if (isActive) {
+          setJobs(data.jobs || []);
+        }
+      } catch (error) {
+        if (!(error instanceof DOMException && error.name === "AbortError") && isActive) {
+          setJobs([]);
+        }
+      } finally {
+        if (isActive) {
+          setLoading(false);
+        }
+      }
+    };
+
+    const scheduleLoad = () => {
+      if (browserWindow.requestIdleCallback) {
+        idleCallbackId = browserWindow.requestIdleCallback(() => {
+          void loadFeaturedJobs();
+        }, { timeout: 1200 });
+        return;
+      }
+
+      timeoutId = browserWindow.setTimeout(() => {
+        void loadFeaturedJobs();
+      }, 250);
+    };
+
+    scheduleLoad();
+
+    return () => {
+      isActive = false;
+      abortController.abort();
+      if (timeoutId !== null) {
+        browserWindow.clearTimeout(timeoutId);
+      }
+      if (idleCallbackId !== null && browserWindow.cancelIdleCallback) {
+        browserWindow.cancelIdleCallback(idleCallbackId);
+      }
+    };
   }, []);
 
   const badgeClass = (model: string) => {
@@ -603,46 +630,35 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    let isMounted = true;
+    const abortController = new AbortController();
+    let isActive = true;
 
     const loadHomeOverview = async () => {
       try {
-        const response = await fetch("/api/home/overview", { cache: "no-store" });
+        const response = await fetch("/api/home/overview", {
+          cache: "force-cache",
+          signal: abortController.signal,
+        });
         if (!response.ok) {
           return;
         }
 
         const data = await response.json();
-        if (isMounted) {
+        if (isActive) {
           setHomeOverview(data);
         }
       } catch (error) {
-        console.error("Home overview fetch error:", error);
+        if (!(error instanceof DOMException && error.name === "AbortError")) {
+          console.error("Home overview fetch error:", error);
+        }
       }
     };
 
-    loadHomeOverview();
-    const intervalId = window.setInterval(loadHomeOverview, 60000);
+    void loadHomeOverview();
 
     return () => {
-      isMounted = false;
-      window.clearInterval(intervalId);
+      isActive = false;
+      abortController.abort();
     };
   }, []);
 

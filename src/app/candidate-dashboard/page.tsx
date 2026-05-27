@@ -199,8 +199,23 @@ function CandidateDashboardContent() {
     // New feature: Recommend Yourself
     const [isRecommendModalOpen, setIsRecommendModalOpen] = useState(false);
     const [recommendRole, setRecommendRole] = useState("");
+    const [recommendRoleError, setRecommendRoleError] = useState("");
     const [recommendAttemptsLeft, setRecommendAttemptsLeft] = useState(0);
     const candidateJobsHref = "/candidate-dashboard?tab=jobs";
+    const hasRecommendProfileContext = [
+        editHeadline,
+        editBio,
+        editJobTitle,
+        editCompany,
+        editExperienceTotal,
+        profile?.resume_url && profile.resume_url !== "No resume provided" ? profile.resume_url : "",
+        ...skills,
+        ...portfolioLinks,
+        ...experience.flatMap((entry) => Object.values(entry || {})),
+        ...education.flatMap((entry) => Object.values(entry || {})),
+        ...certifications.flatMap((entry) => Object.values(entry || {})),
+        ...projects.flatMap((entry) => Object.values(entry || {})),
+    ].some((value) => typeof value === "string" && value.trim().length > 0);
 
     const syncRecentActivityEntries = (apps: Application[]) => {
         if (typeof window === "undefined") return {};
@@ -1560,7 +1575,7 @@ function CandidateDashboardContent() {
                         </div>
                         <h2 className="text-2xl font-semibold font-heading text-foreground mb-2">Recommend Yourself</h2>
                         <p className="text-muted-foreground text-sm mb-4 font-medium leading-relaxed">
-                            Take a 10-minute AI-powered technical test customized for your desired role. Your score will be directly visible to top employers looking for your skills!
+                            Take a 10-minute AI-powered technical test customized from your profile details or an optional target role. Your score will be directly visible to top employers looking for your skills!
                         </p>
 
                         <div className={`mb-6 p-4 rounded-xl border ${recommendAttemptsLeft > 0 ? 'bg-[#FF7A00]/10 border-[#FF7A00]/20 text-[#FF7A00]' : 'bg-red-500/10 border-red-500/20 text-red-500'}`}>
@@ -1571,14 +1586,20 @@ function CandidateDashboardContent() {
                         </div>
 
                         <div className="mb-8">
-                            <label className="block text-[13px] font-medium font-semibold text-muted-foreground mb-3 uppercase tracking-widest pl-1">Target Role</label>
+                            <label className="block text-[13px] font-medium font-semibold text-muted-foreground mb-3 uppercase tracking-widest pl-1">Target Role <span className="normal-case tracking-normal text-muted-foreground/70">(optional if profile has data)</span></label>
                             <input
                                 autoFocus
                                 value={recommendRole}
-                                onChange={e => setRecommendRole(e.target.value)}
+                                onChange={e => {
+                                    setRecommendRole(e.target.value);
+                                    if (recommendRoleError) setRecommendRoleError("");
+                                }}
                                 placeholder="e.g. Frontend Developer, Data Scientist..."
                                 className="w-full bg-background border border-border rounded-xl px-5 py-3 text-sm text-foreground font-bold focus:outline-none focus:ring-2 focus:ring-[#FF7A00]/20 focus:border-[#FF7A00] transition-all"
                             />
+                            {recommendRoleError && (
+                                <p className="mt-2 text-xs font-semibold text-red-500">{recommendRoleError}</p>
+                            )}
                         </div>
 
                         <div className="flex gap-4">
@@ -1591,8 +1612,17 @@ function CandidateDashboardContent() {
                             <button
                                 disabled={recommendAttemptsLeft <= 0}
                                 onClick={() => {
-                                    if (recommendRole.trim() && recommendAttemptsLeft > 0) {
-                                        router.push(`/candidate/interview-sim/recommend?role=${encodeURIComponent(recommendRole)}`);
+                                    const targetRole = recommendRole.trim();
+                                    if (!targetRole && !hasRecommendProfileContext) {
+                                        setRecommendRoleError("Enter a target role or add at least one profile detail before starting.");
+                                        return;
+                                    }
+
+                                    if (recommendAttemptsLeft > 0) {
+                                        router.push(targetRole
+                                            ? `/candidate/interview-sim/recommend?role=${encodeURIComponent(targetRole)}`
+                                            : "/candidate/interview-sim/recommend"
+                                        );
                                     }
                                 }}
                                 className={`flex-1 font-semibold py-3 rounded-xl transition-all ${recommendAttemptsLeft > 0 ? 'bg-[#FF7A00] hover:bg-[#D97706] text-black shadow-lg shadow-[#FF7A00]/20' : 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'}`}

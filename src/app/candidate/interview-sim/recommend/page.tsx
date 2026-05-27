@@ -25,6 +25,12 @@ interface AnswerEvaluation {
     feedback: string;
 }
 
+interface AssessmentQuestionItem {
+    topic: string;
+    difficulty: string;
+    question: string;
+}
+
 const HIDDEN_INTERVIEW_FEEDBACK_PREFIXES = [
     "AI evaluation was temporarily unavailable, so a built-in interview fallback was used.",
 ];
@@ -46,7 +52,7 @@ function getVisibleInterviewFeedback(feedback?: string | null) {
 
 function RecommendInterviewContent() {
     const searchParams = useSearchParams();
-    const roleParam = searchParams.get("role") || "General";
+    const roleParam = searchParams.get("role")?.trim() || "";
 
     const router = useRouter();
     const [loading, setLoading] = useState(true);
@@ -69,10 +75,13 @@ function RecommendInterviewContent() {
     const allTranscriptsRef = useRef<string[]>([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questions, setQuestions] = useState<string[]>([]);
+    const [questionItems, setQuestionItems] = useState<AssessmentQuestionItem[]>([]);
     const [allTranscripts, setAllTranscripts] = useState<string[]>([]);
     const [answerText, setAnswerText] = useState("");
     const [answerEvaluation, setAnswerEvaluation] = useState<AnswerEvaluation | null>(null);
     const [isEvaluatingAnswer, setIsEvaluatingAnswer] = useState(false);
+    const [assessmentAnalysis, setAssessmentAnalysis] = useState("");
+    const [assessmentRole, setAssessmentRole] = useState(roleParam);
 
     const [showRules, setShowRules] = useState(false);
     const [eligibilityError, setEligibilityError] = useState<string | null>(null);
@@ -84,6 +93,8 @@ function RecommendInterviewContent() {
 
     const liveTranscript = answerText.trim();
     const visibleAnswerFeedback = getVisibleInterviewFeedback(answerEvaluation?.feedback);
+    const activeRole = assessmentRole || roleParam || "Profile-based assessment";
+    const currentQuestionItem = questionItems[currentQuestionIndex];
 
     const questionsMap: Record<string, string[]> = {
         "frontend": [
@@ -148,6 +159,31 @@ function RecommendInterviewContent() {
         ]
     };
 
+    const getFallbackQuestions = (attemptCount: number, fallbackRole = activeRole) => {
+        const title = fallbackRole.toLowerCase();
+        let categoryKey = "general";
+
+        for (const key of Object.keys(questionsMap)) {
+            if (title.includes(key)) {
+                categoryKey = key;
+                break;
+            }
+        }
+
+        const categoryQuestions = [...questionsMap[categoryKey]];
+        const startIndex = (attemptCount * 10) % categoryQuestions.length;
+
+        return Array.from({ length: 10 }, (_, index) => categoryQuestions[(startIndex + index) % categoryQuestions.length]);
+    };
+
+    const buildFallbackQuestionItems = (fallbackQuestions: string[], fallbackRole: string): AssessmentQuestionItem[] => {
+        return fallbackQuestions.map((question, index) => ({
+            topic: index % 3 === 0 ? fallbackRole : index % 3 === 1 ? "Practical Skills" : "Communication",
+            difficulty: "Adaptive",
+            question,
+        }));
+    };
+
     useEffect(() => {
         const initInterview = async () => {
             try {
@@ -165,27 +201,32 @@ function RecommendInterviewContent() {
                         return;
                     }
 
-                    const count = data.count || 0;
-                    const title = roleParam.toLowerCase();
-                    let categoryKey = "general";
+                    const generatedQuestions = Array.isArray(data.questions)
+                        ? data.questions.filter((question: unknown) => typeof question === "string" && question.trim())
+                        : [];
+                    const generatedQuestionItems = Array.isArray(data.questionItems)
+                        ? data.questionItems
+                            .filter((item: any) => item && typeof item.question === "string" && item.question.trim())
+                            .map((item: any) => ({
+                                topic: typeof item.topic === "string" && item.topic.trim() ? item.topic.trim() : "General",
+                                difficulty: typeof item.difficulty === "string" && item.difficulty.trim() ? item.difficulty.trim() : "Adaptive",
+                                question: item.question.trim(),
+                            }))
+                        : [];
 
-                    for (const key of Object.keys(questionsMap)) {
-                        if (title.includes(key)) {
-                            categoryKey = key;
-                            break;
-                        }
-                    }
+                    const nextAssessmentRole = typeof data.role === "string" && data.role.trim()
+                        ? data.role.trim()
+                        : roleParam;
+                    const fallbackQuestions = getFallbackQuestions(data.count || 0, nextAssessmentRole);
+                    const nextQuestions = generatedQuestions.length > 0 ? generatedQuestions : fallbackQuestions;
+                    const nextQuestionItems = generatedQuestionItems.length > 0
+                        ? generatedQuestionItems
+                        : buildFallbackQuestionItems(nextQuestions, nextAssessmentRole || "Profile");
 
-                    const categoryQuestions = [...questionsMap[categoryKey]];
-                    const startIndex = (count * 10) % categoryQuestions.length;
-
-                    // To ensure we get exactly 10 questions safely wrapping around
-                    let selected: string[] = [];
-                    for (let i = 0; i < 10; i++) {
-                        selected.push(categoryQuestions[(startIndex + i) % categoryQuestions.length]);
-                    }
-
-                    setQuestions(selected);
+                    setAssessmentRole(nextAssessmentRole);
+                    setQuestions(nextQuestions);
+                    setQuestionItems(nextQuestionItems);
+                    setAssessmentAnalysis(typeof data.analysis === "string" ? data.analysis : "");
                     setShowRules(true);
                 } else {
                     const data = await res.json().catch(() => ({}));
@@ -199,9 +240,7 @@ function RecommendInterviewContent() {
             }
         };
 
-        if (roleParam) {
-            initInterview();
-        }
+        initInterview();
     }, [roleParam]);
 
     const startCamera = async () => {
@@ -224,6 +263,13 @@ function RecommendInterviewContent() {
 
     useEffect(() => {
         streamRef.current = stream;
+
+        if (stream && videoRef.current) {
+            videoRef.current.srcObject = stream;
+            videoRef.current.play().catch((error) => {
+                console.warn("Interview video playback did not start automatically:", error);
+            });
+        }
     }, [stream]);
 
     useEffect(() => {
@@ -304,11 +350,11 @@ function RecommendInterviewContent() {
                 fetch("/api/interview-sim/score", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ role: roleParam, transcript: finalTranscript }),
+                    body: JSON.stringify({ role: activeRole, transcript: finalTranscript }),
                 }).catch((err) => console.error("Termination scoring error:", err));
             },
         });
-    }, [stream, showRules, result, terminationMessage, roleParam]);
+    }, [stream, showRules, result, terminationMessage, activeRole]);
 
     const updateAnswerText = (value: string) => {
         setAnswerText(value);
@@ -381,7 +427,7 @@ function RecommendInterviewContent() {
                 answer,
                 transcript: answer,
                 question: questions[currentQuestionIndex],
-                role: roleParam,
+                role: activeRole,
             }),
         });
         const evaluationData = await evaluationRes.json().catch(() => ({}));
@@ -408,7 +454,7 @@ function RecommendInterviewContent() {
             const scoreRes = await fetch("/api/interview-sim/score", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ role: roleParam, transcript: finalTranscript })
+                body: JSON.stringify({ role: activeRole, transcript: finalTranscript })
             });
 
             if (scoreRes.ok) {
@@ -572,7 +618,7 @@ function RecommendInterviewContent() {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        role: roleParam,
+                        role: activeRole,
                         transcript: finalTranscript,
                     })
                 }).catch(err => console.error("Termination scoring error:", err));
@@ -581,7 +627,7 @@ function RecommendInterviewContent() {
 
         document.addEventListener("visibilitychange", handleVisibilityChange);
         return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-    }, [isProcessing, result, questions.length, currentQuestionIndex, mediaRecorder, allTranscripts, roleParam, router, showRules, eligibilityError]);
+    }, [isProcessing, result, questions.length, currentQuestionIndex, mediaRecorder, allTranscripts, activeRole, router, showRules, eligibilityError]);
 
     const endTestEarly = async () => {
         if (!confirm("Are you sure you want to end the test early and evaluate your current answers?")) return;
@@ -603,7 +649,7 @@ function RecommendInterviewContent() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    role: roleParam,
+                    role: activeRole,
                     transcript: finalTranscript,
                 })
             });
@@ -650,6 +696,12 @@ function RecommendInterviewContent() {
                     </div>
                     <h2 className="text-3xl font-extrabold text-white mb-2 relative z-10">Rules & Regulations</h2>
                     <p className="text-zinc-300 font-medium mb-8 relative z-10 text-sm">Please adhere to the following conditions to ensure a fair and valid assessment.</p>
+                    {assessmentAnalysis && (
+                        <div className="mb-5 rounded-2xl border border-[#F59E0B]/25 bg-[#F59E0B]/10 p-4 relative z-10">
+                            <p className="text-[11px] font-black uppercase tracking-widest text-[#F59E0B] mb-1">AI Profile Analysis</p>
+                            <p className="text-sm text-white/80 leading-relaxed">{assessmentAnalysis}</p>
+                        </div>
+                    )}
 
                     <ul className="space-y-4 mb-10 relative z-10 text-sm">
                         <li className="flex items-start gap-4 p-3 rounded-xl bg-white/10 border border-white/20">
@@ -700,7 +752,7 @@ function RecommendInterviewContent() {
                     </Link>
                     <h1 className="text-3xl font-extrabold text-white">AI Interview <span className="shimmer-text">Simulator</span></h1>
                     <div className="flex justify-between items-center mt-2">
-                        <p className="text-white/60">Practice your response for the <span className="text-white font-bold">{roleParam}</span> role.</p>
+                        <p className="text-white/60">Practice your response for <span className="text-white font-bold">{activeRole}</span>.</p>
                         <span className="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full border border-white/20 uppercase tracking-widest">
                             Question {currentQuestionIndex + 1} of {questions.length}
                         </span>
@@ -745,8 +797,18 @@ function RecommendInterviewContent() {
                                 )}
 
                                 <div className="absolute top-0 inset-x-0 p-6 bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
+                                    {currentQuestionItem && (
+                                        <div className="mb-3 flex flex-wrap justify-center gap-2">
+                                            <span className="rounded-full border border-[#F59E0B]/30 bg-[#F59E0B]/15 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#F59E0B]">
+                                                {currentQuestionItem.topic}
+                                            </span>
+                                            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white/70">
+                                                {currentQuestionItem.difficulty}
+                                            </span>
+                                        </div>
+                                    )}
                                     <h2 className="text-white font-bold text-lg md:text-xl text-center max-w-2xl mx-auto drop-shadow-sm">
-                                        &quot;{questions[currentQuestionIndex]}&quot;
+                                        &quot;{currentQuestionItem?.question || questions[currentQuestionIndex]}&quot;
                                     </h2>
                                 </div>
 

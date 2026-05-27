@@ -74,6 +74,19 @@ model User {
   reportsAsUser        Report[]           @relation("UserReports")
 }
 
+model StoredFile {
+  id         String   @id @default(cuid())
+  folder     String
+  file_name  String
+  mime_type  String
+  size       Int
+  data       Bytes
+  created_at DateTime @default(now())
+
+  @@unique([folder, file_name])
+  @@index([folder])
+}
+
 model Bookmark {
   id         String   @id @default(cuid())
   user_id    String
@@ -272,7 +285,7 @@ model NewsletterSubscriber {
 }
 
 model OtpSession {
-  id              String   @id @default(cuid())
+  id              String    @id @default(cuid())
   purpose         String
   user_id         String?
   email           String?
@@ -280,12 +293,12 @@ model OtpSession {
   otp_hash        String
   expires_at      DateTime
   consumed_at     DateTime?
-  last_sent_at    DateTime @default(now())
-  resend_count    Int      @default(0)
-  verify_attempts Int      @default(0)
+  last_sent_at    DateTime  @default(now())
+  resend_count    Int       @default(0)
+  verify_attempts Int       @default(0)
   metadata        Json?
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
 
   @@index([purpose, user_id])
   @@index([purpose, email])

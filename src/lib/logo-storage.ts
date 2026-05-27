@@ -26,6 +26,7 @@ const EXTENSION_BY_MIME_TYPE: Record<string, string> = {
 };
 
 const STORAGE_CONFIG = {
+    folderName: "logos",
     uploadDir: LOGO_UPLOAD_DIR,
     urlPrefix: LOGO_URL_PREFIX,
     mimeTypeByExtension: MIME_TYPE_BY_EXTENSION,
@@ -35,7 +36,7 @@ const STORAGE_CONFIG = {
 };
 
 export async function saveLogoFile(buffer: Buffer, originalName: string, mimeType: string) {
-    return saveStoredFile(buffer, originalName, mimeType, "logos", STORAGE_CONFIG);
+    return saveStoredFile(buffer, originalName, mimeType, STORAGE_CONFIG);
 }
 
 export async function deleteLogoFileByUrl(url: string | null | undefined) {

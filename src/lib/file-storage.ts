@@ -2,8 +2,10 @@ import crypto from "crypto";
 import path from "path";
 import { del, put } from "@vercel/blob";
 import { mkdir, readFile, unlink, writeFile } from "fs/promises";
+import { db } from "@/lib/db";
 
 type StorageConfig = {
+    folderName: string;
     uploadDir: string;
     urlPrefix: string;
     mimeTypeByExtension: Record<string, string>;
@@ -11,6 +13,8 @@ type StorageConfig = {
     defaultExtension: string;
     fallbackMimeType?: string;
 };
+
+let ensureStoredFileTablePromise: Promise<void> | null = null;
 
 function sanitizeFileNameBase(name: string) {
     const parsed = path.parse(name);
@@ -63,10 +67,48 @@ function isBlobStorageConfigured() {
     return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
 }
 
-function ensureBlobStorageConfiguredForVercel() {
-    if (process.env.VERCEL && !isBlobStorageConfigured()) {
-        throw new Error("BLOB_READ_WRITE_TOKEN is required on Vercel for persistent file uploads.");
+function getStorageDriver() {
+    return process.env.FILE_STORAGE_DRIVER?.trim().toLowerCase();
+}
+
+function shouldUseDatabaseStorage() {
+    const driver = getStorageDriver();
+    if (driver === "database" || driver === "postgres" || driver === "postgresql") {
+        return true;
     }
+
+    if (driver === "local" || driver === "filesystem" || driver === "blob") {
+        return false;
+    }
+
+    return Boolean(process.env.VERCEL);
+}
+
+async function ensureStoredFileTable() {
+    ensureStoredFileTablePromise ??= (async () => {
+        await db.$executeRawUnsafe(`
+            CREATE TABLE IF NOT EXISTS "StoredFile" (
+                "id" TEXT NOT NULL,
+                "folder" TEXT NOT NULL,
+                "file_name" TEXT NOT NULL,
+                "mime_type" TEXT NOT NULL,
+                "size" INTEGER NOT NULL,
+                "data" BYTEA NOT NULL,
+                "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                CONSTRAINT "StoredFile_pkey" PRIMARY KEY ("id")
+            )
+        `);
+        await db.$executeRawUnsafe(`
+            CREATE UNIQUE INDEX IF NOT EXISTS "StoredFile_folder_file_name_key"
+            ON "StoredFile"("folder", "file_name")
+        `);
+        await db.$executeRawUnsafe(`
+            CREATE INDEX IF NOT EXISTS "StoredFile_folder_idx"
+            ON "StoredFile"("folder")
+        `);
+    })();
+
+    return ensureStoredFileTablePromise;
 }
 
 function getRemoteFileName(url: string) {
@@ -111,7 +153,6 @@ export async function saveStoredFile(
     buffer: Buffer,
     originalName: string,
     mimeType: string,
-    folderName: string,
     config: StorageConfig
 ) {
     const storedFileName = `${Date.now()}_${crypto.randomUUID()}_${sanitizeFileNameBase(originalName)}${getFileExtension(
@@ -120,8 +161,26 @@ export async function saveStoredFile(
         config
     )}`;
 
+    if (shouldUseDatabaseStorage()) {
+        await ensureStoredFileTable();
+        await db.storedFile.create({
+            data: {
+                folder: config.folderName,
+                file_name: storedFileName,
+                mime_type: mimeType || getMimeType(storedFileName, config),
+                size: buffer.length,
+                data: buffer,
+            },
+        });
+
+        return {
+            fileName: storedFileName,
+            url: `${config.urlPrefix}${encodeURIComponent(storedFileName)}`,
+        };
+    }
+
     if (isBlobStorageConfigured()) {
-        const blob = await put(`${folderName}/${storedFileName}`, buffer, {
+        const blob = await put(`${config.folderName}/${storedFileName}`, buffer, {
             access: "public",
             addRandomSuffix: false,
             contentType: mimeType,
@@ -132,8 +191,6 @@ export async function saveStoredFile(
             url: blob.url,
         };
     }
-
-    ensureBlobStorageConfiguredForVercel();
 
     await mkdir(config.uploadDir, { recursive: true });
     const filePath = resolveStoredFilePath(storedFileName, config.uploadDir);
@@ -152,6 +209,20 @@ export async function deleteStoredFileByUrl(url: string | null | undefined, conf
 
     const storedFileName = getStoredFileNameFromUrl(url, config.urlPrefix);
     if (storedFileName) {
+        if (shouldUseDatabaseStorage()) {
+            await ensureStoredFileTable();
+            const deleteResult = await db.storedFile.deleteMany({
+                where: {
+                    folder: config.folderName,
+                    file_name: storedFileName,
+                },
+            });
+
+            if (deleteResult.count > 0) {
+                return true;
+            }
+        }
+
         try {
             await unlink(resolveStoredFilePath(storedFileName, config.uploadDir));
             return true;
@@ -183,6 +254,29 @@ export async function deleteStoredFileByUrl(url: string | null | undefined, conf
 
 export async function readLocalStoredFile(fileName: string, config: StorageConfig) {
     const safeFileName = decodeURIComponent(fileName);
+
+    if (shouldUseDatabaseStorage()) {
+        await ensureStoredFileTable();
+        const storedFile = await db.storedFile.findUnique({
+            where: {
+                folder_file_name: {
+                    folder: config.folderName,
+                    file_name: safeFileName,
+                },
+            },
+        });
+
+        if (storedFile) {
+            return {
+                fileName: storedFile.file_name,
+                mimeType: storedFile.mime_type,
+                buffer: Buffer.from(storedFile.data),
+            };
+        }
+
+        throw Object.assign(new Error("Stored file not found."), { code: "ENOENT" });
+    }
+
     const filePath = resolveStoredFilePath(safeFileName, config.uploadDir);
 
     return {

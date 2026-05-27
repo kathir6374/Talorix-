@@ -26,6 +26,7 @@ const EXTENSION_BY_MIME_TYPE: Record<string, string> = {
 };
 
 const STORAGE_CONFIG = {
+    folderName: "avatars",
     uploadDir: AVATAR_UPLOAD_DIR,
     urlPrefix: AVATAR_URL_PREFIX,
     mimeTypeByExtension: MIME_TYPE_BY_EXTENSION,
@@ -35,7 +36,7 @@ const STORAGE_CONFIG = {
 };
 
 export async function saveAvatarFile(buffer: Buffer, originalName: string, mimeType: string) {
-    return saveStoredFile(buffer, originalName, mimeType, "avatars", STORAGE_CONFIG);
+    return saveStoredFile(buffer, originalName, mimeType, STORAGE_CONFIG);
 }
 
 export async function deleteAvatarFileByUrl(url: string | null | undefined) {

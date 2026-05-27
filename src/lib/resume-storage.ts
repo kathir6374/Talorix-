@@ -23,6 +23,7 @@ const EXTENSION_BY_MIME_TYPE: Record<string, string> = {
 };
 
 const STORAGE_CONFIG = {
+    folderName: "resumes",
     uploadDir: RESUME_UPLOAD_DIR,
     urlPrefix: RESUME_URL_PREFIX,
     mimeTypeByExtension: MIME_TYPE_BY_EXTENSION,
@@ -36,7 +37,7 @@ export function isStoredResumeUrl(url: string | null | undefined) {
 }
 
 export async function saveResumeFile(buffer: Buffer, originalName: string, mimeType: string) {
-    return saveStoredFile(buffer, originalName, mimeType, "resumes", STORAGE_CONFIG);
+    return saveStoredFile(buffer, originalName, mimeType, STORAGE_CONFIG);
 }
 
 export async function deleteResumeFileByUrl(url: string | null | undefined) {
